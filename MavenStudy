@@ -1,0 +1,64 @@
+Maven的使用：
+1.下载maven ：从网上下载 Maven：http://maven.apache.org/download.html，解压即安装
+2.配置 MAVEN_HOME
+3.配置 path
+4.测试3.  测试 在cmd中输入 mvn -v 和 mvn
+  *Maven会**自动生成两个文件夹*:C:\Users\Administrator\.m2\
+//=====================================================================================
+maven 仓库（放包的地方）
+Maven会自动为咱们添加相应的jar包，而这个jar包会先在`本地仓库`中查找，如果本地仓库中找不到，则会去`中央仓库`(网络上)去进行下载。
+配置仓库：
+进入Maven的安装目录，找到conf/settings.xml配置文件进行辑
+  1. 增加本地仓库配置指向本地仓库目录：<localRepository>D:/OpenSource/repository</localRepository>
+  2.在<mirrors>节点下增加远程仓库地址，使用阿里云的maven仓库
+    <mirror>
+      <id>nexus-aliyun</id>
+      <mirrorOf>central</mirrorOf>
+     <name>Nexus aliyun</name>
+     <url>http://maven.aliyun.com/nexus/content/groups/public</url> 
+    </mirror>
+  3.把settings.xml配置文件拷贝到 ~用户根路径C:\Users\Administrator/.m2/settings.xml 中
+//=====================================================================================
+项目结构：
+Hello--
+  --src
+    ---main
+      ---java
+    ---test
+      ---java
+  --pom.xml
+//=====================================================================================
+常用命令： 
+- `mvn compile` ：编译命令，可以重新编译源代码为字节码，如果有jar没下载完成，这个命令会先把需要的jar下载完成后再编译。
+
+- `mvn clean`：清理命令，会把target中的字节码删除掉，可以组合： mvn clean compile
+
+- mvn test: 测试命令：会帮我们执行测试代码
+
+- `mvn package`：打包命令,可以把项目打包成一个 jar，该命令会先执行 clean , test , complie, 如果不想执行测试命令可以跳过：mvn package -Dmaven.test.skip=true
+
+- `mvn install`：把项目打包，安装在本地仓库
+
+- mvn source:jar：生成项目的源码包例如： xxx-source.jar
+
+- mvn clean site：生成文档
+
+- mvn eclipse:eclipse：生成Eclipse的需要2个文件，即把项目转成eclipse的项目
+
+- mvn idea:idea ：把项目转换成idea的项目
+
+//===========================================================================================
+tips:
+pom 先根据配置的maven local resp 里面去找包，找不到再下载
+
+jdk版本配置:
+            setting.xml里面配
+              找到 <profiles> 节点，并添加如上配置（本机 jdk1,。8 版本，配置时修改成你本机的 jdk 版本）。保存并关闭。重启 eclipse 即可。
+            pom插件配置
+              在pom.xml中 <build> 节点添加如下配置（本机 jdk 18 版本，配置时修改成你本机的 jdk 版本）
+              配置完成后，需要执行一次更新项目配置的动作。选中项目 --> 右键 --> Maven --> Update Project
+ //===========================================================================================
+
+
+ 
+ 
